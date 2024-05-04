@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multiple Choice Questions</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    h2 {
+        text-align: center;
+    }
+    #question {
+        margin-bottom: 20px;
+    }
+    #choices {
+        margin-bottom: 20px;
+    }
+    #submitBtn {
+        display: block;
+        margin: 0 auto;
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    #result {
+        text-align: center;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Tequila / Mezcal / flavoured white spirits
+</h2>
+
+    <div id="question"></div>
+    <div id="choices"></div>
+    <button id="submitBtn">Submit</button>
+    <div id="result"></div>
+</div>
+
+<script>
+// Define your questions and choices
+const questions = [
+	{
+        question: "Tequila that is classified as 'regular' uses sugars from what raw materials?",
+        choices: ["A. Blue agave only", "B. Agave only", "C. Agave and non-agave sugars", "D. Blue agave and non-agave sugars"],
+        answer: "D. Blue agave and non-agave sugars"
+    },
+    {
+        question: "In what year did tequila gain global recognition as a product exclusive to Mexico?",
+        choices: ["A. 1954", "B. 1964", "C. 1974", "D. 1984"],
+        answer: "C. 1974"
+    },
+    {
+        question: "Tequila can only be distilled in how many demarcated areas?",
+        choices: ["A. One", "B. Five", "C. Three", "D. Seven"],
+        answer: "B. Five"
+    },
+    {
+        question: "In regular tequila what is the minimum percentage of sugars that must come from the blue agave?",
+        choices: ["A. 45%", "B. 49%", "C. 51%", "D. 55%"],
+        answer: "C. 51%"
+    },
+    {
+        question: "The bigger and sweeter agave plants grow in which area in Mexico?",
+        choices: ["A. Highlands", "B. Lowlands", "C. Tequila valley", "D. Tequila town"],
+        answer: "A. Highlands"
+    },
+    {
+        question: "In what year was José Maria Guadalupe de Cuervo granted the first commercial license to produce 'agave wine'?",
+        choices: ["А. 1695", "B. 1725", "C. 1765", "D. 1795"],
+        answer: "D. 1795"
+    },
+    {
+        question: "The blue agave is also called the 'century plant' because of the long time the plant takes to flower. Generally, how long does it take?",
+        choices: ["A. 4-6 years", "B. 5-9 years", "C. 7-12 years", "D. 10-15 years"],
+        answer: "C. 7-12 years"
+    },
+    {
+        question: "Which of these terms can be applied to unaged tequila?",
+        choices: ["A. Blanco", "B. Plata", "C. Silver", "D. All of these"],
+        answer: "D. All of these"
+    },
+    {
+        question: "Which state in Mexico produces around 99% of all tequila?",
+        choices: ["A. Jalisco", "B. Nayarit", "C. Tamaulipas", "D. Guanajuato"],
+        answer: "A. Jalisco"
+    },
+    {
+        question: "Tequila classified as reposado must be rested (aged) for a minimum of how many months?",
+        choices: ["A. One month", "B. Two months", "C. Four months", "D. Eight months"],
+        answer: "B. Two months"
+    },
+    {
+        question: "Tequila classified as añejo must be aged for a minimum of how many months?",
+        choices: ["A. 12 months", "B. 15 months", "C. 24 months", "D. 36 months"],
+        answer: "A. 12 months"
+    },
+    {
+        question: "What is the name given to the skilled workers who harvest the agave plants?",
+        choices: ["A. Quiotes", "B. Agaveros", "C. Piñas", "D. Jimadors"],
+        answer: "D. Jimadors"
+    },
+    {
+        question: "What is the name given to the traditional oven used to cook the agaves?",
+        choices: ["A. Autoclave", "B. Tahona", "C. Horno", "D. Penca"],
+        answer: "C. Horno"
+    },
+    {
+        question: "What is the name given to the sugary sap that's crushed or washed out from the cooked agave plants?",
+        choices: ["A. Ordinario", "B. Aqua miel", "C. Tequila", "D. Mosto"],
+        answer: "B. Aqua miel"
+    },
+    {
+        question: "In tequila production what is the name given to the distillate retained from the first distillation?",
+        choices: ["A. Ordinario", "B. Aqua miel", "C. Tequila", "D. Mosto"],
+        answer: "A. Ordinario"
+    },
+    {
+        question: "When a spirit is to be commercialized as tequila the alcohol strength off the still must lie between what levels?",
+        choices: ["A. 30%-45% ABV", "B. 35%-55% ABV", "C. 40%- 60% ABV", "D. No restrictions"],
+        answer: "B. 35%-55% ABV"
+    },
+    {
+        question: "What is the meaning of the phrase 'con gusano' on a label of mezcal?",
+        choices: ["A. Contains a worm", "B. Contains flavourings", "C. Contains the larva of a moth", "D. Contains added sugars"],
+        answer: "C. Contains the larva of a moth"
+    },
+    {
+        question: "What cooking process is used to generate mezcal's distinctive smokiness?",
+        choices: ["A. Roasting", "B. Steaming", "C. Boiling", "D. Pressure cooking"],
+        answer: "A. Roasting"
+    },
+    {
+        question: "To be called añejo the tequila must have been aged in oak barrels with a capacity no greater than what?",
+        choices: ["A. 200 litres", "B. 400 litres", "C. 600 litres", "D. 750 litres"],
+        answer: "C. 600 litres"
+    },
+    {
+        question: "The agave plant used to make tequila is classified as a member of what plant family?",
+        choices: ["A. Cactus", "B. Penca", "C. Yucca", "D. Lily"],
+        answer: "D. Lily"
+    },
+    {
+        question: "In the production of tequila, 'mosto muerto' is the name given to the liquid created by what process?",
+        choices: ["A. Crushing", "B. Cooking", "C. Fermentation", "D. Distillation"],
+        answer: "C. Fermentation"
+    },
+
+
+	//Quiz on other flavoured white spirits
+
+
+	{
+        question: "Who opened his first distillery in Couvet, Switzerland before changing his name to Pernod?",
+        choices: ["A. Dr. Pierre Ordinaire", "B. Major Dubied", "C. M. Perrenoud", "D. None of these"],
+        answer: "C. M. Perrenoud"
+    },
+    {
+        question: "Which of these ingredients is Artemisia absinthium, the key flavouring traditionally used in absinthe?",
+        choices: ["A. Fennel", "B. Wormwood", "C. Anise", "D. Hyssop"],
+        answer: "B. Wormwood"
+    },
+    {
+        question: "Which of these statements, relating to absinthe, is true?",
+        choices: ["A. The EU permits thujone levels of 10 ppm and the USA, 35 ppm", "B. The EU and USA permit thujone levels of 10 ppm", "C. The EU and USA permit thujone levels of 35 ppm", "D. The EU permits thujone levels of 35 ppm and the USA, 10 ppm"],
+        answer: "D. The EU permits thujone levels of 35 ppm and the USA, 10 ppm"
+    },
+    {
+        question: "In which of these countries were sales of absinthe never formally banned?",
+        choices: ["A. France", "B. Belgium", "C. Holland", "D. United Kingdom"],
+        answer: "D. United Kingdom"
+    },
+    {
+        question: "What is absinthe's historical nickname?",
+        choices: ["A. The green fairy", "B. The green hour", "C. The green sage", "D. The green louche"],
+        answer: "A. The green fairy"
+    },
+    {
+        question: "When absinthe is mixed with water what insoluble flavour compound louches into a milky green colour?",
+        choices: ["A. Anethole", "B. Chlorophyll", "C. Artemisia", "D. Thujone"],
+        answer: "A. Anethole"
+    },
+    {
+        question: "Following the banning of absinthe, when were aniseed drinks made legal in France, permitting Pernod to introduce anis and Ricard, pastis?",
+        choices: ["А. 1905", "В. 1915", "C. 1920", "D. 1925"],
+        answer: "C. 1920"
+    },
+    {
+        question: "From the late seventeenth to the nineteenth centuries what was the most celebrated ingredient in punch?",
+        choices: ["A. Raki", "B. Arrack", "C. Ouzo", "D. Pastis"],
+        answer: "B. Arrack"
+    },
+    {
+        question: "Akvavit is distilled in what country?",
+        choices: ["A. Finland", "B. Norway", "C. Sweden", "D. Denmark"],
+        answer: "D. Denmark"
+    },
+    {
+        question: "Shochu is native to which country?",
+        choices: ["A. China", "B. Korea", "C. Japan", "D. Thailand"],
+        answer: "C. Japan"
+    },
+    {
+        question: "Soju is native to which country?",
+        choices: ["A. Japan", "B. Korea", "C. China", "D. Thailand"],
+        answer: "B. Korea"
+    },
+    {
+        question: "Baijiu is a term used to describe distilled alcohol in which country?",
+        choices: ["A. China", "B. Korea", "C. Malaysia", "D. Japan"],
+        answer: "A. China"
+    }
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+let mistakenQuestions = [];
+
+const questionElement = document.getElementById('question');
+const choicesElement = document.getElementById('choices');
+const submitBtn = document.getElementById('submitBtn');
+const resultElement = document.getElementById('result');
+
+function displayQuestion() {
+    const q = questions[currentQuestion];
+    questionElement.textContent = q.question;
+    choicesElement.innerHTML = '';
+    q.choices.forEach(choice => {
+        const radioBtn = document.createElement('input');
+        radioBtn.type = 'radio';
+        radioBtn.name = 'choice';
+        radioBtn.value = choice;
+        choicesElement.appendChild(radioBtn);
+        choicesElement.appendChild(document.createTextNode(choice));
+        choicesElement.appendChild(document.createElement('br'));
+    });
+}
+
+function checkAnswer() {
+    const selectedOption = document.querySelector('input[name="choice"]:checked');
+    if (!selectedOption) {
+        alert('Please select an option');
+        return;
+    }
+
+    const correctAnswer = questions[currentQuestion].answer;
+    const userAnswer = selectedOption.value;
+
+    if (userAnswer === correctAnswer) {
+        score++;
+    } else {
+        mistakenQuestions.push({
+            question: questions[currentQuestion].question,
+            correctAnswer: correctAnswer,
+            userAnswer: userAnswer
+        });
+    }
+
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        displayQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    questionElement.style.display = 'none';
+    choicesElement.style.display = 'none';
+    submitBtn.style.display = 'none';
+    let resultText = `You scored ${score} out of ${questions.length}`;
+    if (mistakenQuestions.length > 0) {
+        resultText += "<br><br>Mistaken Questions:<br>";
+        mistakenQuestions.forEach((mistake, index) => {
+            resultText += `<br>${index + 1}. ${mistake.question}<br>`;
+            resultText += `Correct Answer: ${mistake.correctAnswer}<br>`;
+            resultText += `Your Answer: ${mistake.userAnswer}<br>`;
+        });
+    }
+    resultElement.innerHTML = resultText;
+}
+
+displayQuestion();
+
+submitBtn.addEventListener('click', checkAnswer);
+</script>
+
+</body>
+</html>
